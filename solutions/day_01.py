@@ -23,4 +23,4 @@ if __name__ == "__main__":
         list_b.append(int(line.split("   ")[1]))
     print(part_0(list_a, list_b))
     print(part_1(list_a, list_b))
-    print(f'Execution time: {time.time() - start_time}s')
+    print(f"Execution time: {time.time() - start_time}s")

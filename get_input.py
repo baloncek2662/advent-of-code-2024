@@ -29,5 +29,7 @@ if __name__ == "__main__":
         if response.status_code >= 200 and response.status_code < 300:
             file.write(response.text)
         else:
-            print(f"Something went wrong with getting inputs for day {day}:\n{response.text}")
+            print(
+                f"Something went wrong with getting inputs for day {day}:\n{response.text}"
+            )
             os.remove(file_path)
