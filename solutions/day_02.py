@@ -44,17 +44,17 @@ def part_1(reports):
         else:
             # try removing problematic element
             problematic = i
-            new_report = report[:problematic] + report[problematic+1:]
+            new_report = report[:problematic] + report[problematic + 1 :]
             if report_safe(new_report):
                 count += 1
             else:
                 # try removing problematic element + 1
-                new_report = report[:problematic+1] + report[problematic+2:]
+                new_report = report[: problematic + 1] + report[problematic + 2 :]
                 if report_safe(new_report):
                     count += 1
                 else:
                     # try removing problematic element -1
-                    new_report = report[:problematic-1] + report[problematic:]
+                    new_report = report[: problematic - 1] + report[problematic:]
                     if report_safe(new_report):
                         count += 1
     return count
