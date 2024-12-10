@@ -2,76 +2,68 @@ import time
 from utils import get_input
 
 
-def get_score(map, i, j, prev_height):
+def get_visited_unique(map, i, j, prev_height, visited):
     map_len = len(map)
     # check if we have gone out of bounds
     if i == map_len or j == map_len or i < 0 or j < 0:
-        return 0
+        return
     curr_height = map[i][j]
     # check if we climbed exactly one step
     if curr_height != prev_height + 1:
-        return 0
-    # check if we have reached the top
+        return
+    # add location to set of visited locations if we have reached the top
     if curr_height == 9:
-        # mark location with a random high number so that we don't count it multiple times
-        map[i][j] = 42
-        return 1
+        visited.add((i, j))
+        return
     # else walk in all directions
-    return (
-        get_score(map, i + 1, j, curr_height)
-        + get_score(map, i - 1, j, curr_height)
-        + get_score(map, i, j + 1, curr_height)
-        + get_score(map, i, j - 1, curr_height)
-    )
-
-
-def reset_map(map, map_len):
-    for i in range(map_len):
-        for j in range(map_len):
-            if map[i][j] == 42:
-                map[i][j] = 9
+    get_visited_unique(map, i + 1, j, curr_height, visited)
+    get_visited_unique(map, i - 1, j, curr_height, visited)
+    get_visited_unique(map, i, j + 1, curr_height, visited)
+    get_visited_unique(map, i, j - 1, curr_height, visited)
 
 
 def part_0(map):
     map_len = len(map)
-    scores = [[0] * map_len for _ in range(map_len)]
+    count = 0
     for i in range(map_len):
         for j in range(map_len):
             if map[i][j] == 0:
-                scores[i][j] = get_score(map, i, j, -1)
-                reset_map(map, map_len)
-    return sum(sum(score) for score in scores)
+                visited_unique = set()
+                get_visited_unique(map, i, j, -1, visited_unique)
+                count += len(visited_unique)
+    return count
 
 
-def get_rating(map, i, j, prev_height):
+def get_visited(map, i, j, prev_height, visited):
     map_len = len(map)
     # check if we have gone out of bounds
     if i == map_len or j == map_len or i < 0 or j < 0:
-        return 0
+        return
     curr_height = map[i][j]
     # check if we climbed exactly one step
     if curr_height != prev_height + 1:
-        return 0
-    # check if we have reached the top
+        return
+    # add location to set of visited locations if we have reached the top
     if curr_height == 9:
-        return 1
+        visited.append((i, j))
+        return
     # else walk in all directions
-    return (
-        get_rating(map, i + 1, j, curr_height)
-        + get_rating(map, i - 1, j, curr_height)
-        + get_rating(map, i, j + 1, curr_height)
-        + get_rating(map, i, j - 1, curr_height)
-    )
+    get_visited(map, i + 1, j, curr_height, visited)
+    get_visited(map, i - 1, j, curr_height, visited)
+    get_visited(map, i, j + 1, curr_height, visited)
+    get_visited(map, i, j - 1, curr_height, visited)
 
 
 def part_1(map):
     map_len = len(map)
-    ratings = [[0] * map_len for _ in range(map_len)]
+    count = 0
     for i in range(map_len):
         for j in range(map_len):
             if map[i][j] == 0:
-                ratings[i][j] = get_rating(map, i, j, -1)
-    return sum(sum(score) for score in ratings)
+                visited = []
+                get_visited(map, i, j, -1, visited)
+                count += len(visited)
+    return count
 
 
 if __name__ == "__main__":
