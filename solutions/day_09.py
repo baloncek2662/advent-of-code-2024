@@ -92,14 +92,14 @@ if __name__ == "__main__":
     file_ix = 0
     for i in range(0, len(input) - 1, 2):
         file_len = int(input[i])
-        space_len = int(input[i+1])
+        space_len = int(input[i + 1])
         for j in range(file_len):
             disk_map.append(file_ix)
         for j in range(space_len):
             disk_map.append(".")
         file_ix += 1
     # add last element
-    for j in range(int(input[i+2])):
+    for j in range(int(input[i + 2])):
         disk_map.append(file_ix)
     print(part_0(deepcopy(disk_map)))
     print(part_1(disk_map))
