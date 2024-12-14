@@ -7,7 +7,10 @@ from utils import get_input
 def get_cheapest_option(a_value_x, a_value_y, b_value_x, b_value_y, x_res, y_res):
     for i in range(0, 101):
         for j in range(0, 101):
-            if a_value_x * i + b_value_x * j == x_res and a_value_y * i + b_value_y * j == y_res:
+            if (
+                a_value_x * i + b_value_x * j == x_res
+                and a_value_y * i + b_value_y * j == y_res
+            ):
                 return i * 3 + j * 1
     return 0
 
@@ -29,7 +32,9 @@ def part_0(lines):
         x_res = int(matches[0][0])
         y_res = int(matches[1][1])
 
-        result += get_cheapest_option(a_value_x, a_value_y, b_value_x, b_value_y, x_res, y_res)
+        result += get_cheapest_option(
+            a_value_x, a_value_y, b_value_x, b_value_y, x_res, y_res
+        )
 
     return result
 
@@ -73,12 +78,11 @@ def part_1(lines):
         db = b1 - b2
         dr = r1 - r2
         if dr % db == 0:
-            b = int(dr/db)
+            b = int(dr / db)
             a = int((res_x - b_value_x * b) / a_value_x)
             result += 3 * a + b
 
     return result
-
 
 
 if __name__ == "__main__":

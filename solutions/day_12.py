@@ -3,10 +3,10 @@ from utils import get_input
 
 
 DIRECTIONS = [
-    (0 , 1 ),  # right
-    (1 , 0 ),  # down
-    (0 , -1),  # left
-    (-1, 0 ),  # up
+    (0, 1),  # right
+    (1, 0),  # down
+    (0, -1),  # left
+    (-1, 0),  # up
 ]
 
 
@@ -28,7 +28,9 @@ def get_fences_plots(area, visited, plot, i, j):
         fences = 0
         plots = 0
         for direction in DIRECTIONS:
-            f, p = get_fences_plots(area, visited, plot, i + direction[0], j + direction[1])
+            f, p = get_fences_plots(
+                area, visited, plot, i + direction[0], j + direction[1]
+            )
             fences += f
             plots += p
         return fences, plots + 1
@@ -72,7 +74,9 @@ def get_sides_plots(area, visited, plot, i, j, fences):
         visited[plot].append((i, j))
         plots = 0
         for direction in DIRECTIONS:
-            p = get_sides_plots(area, visited, plot, i + direction[0], j + direction[1], fences)
+            p = get_sides_plots(
+                area, visited, plot, i + direction[0], j + direction[1], fences
+            )
             # if f != None:
             #     fences.append(f)
             plots += p
@@ -91,9 +95,9 @@ def get_sides(area, fences):
     while i < len(sorted_fences) - 1:
         el = sorted_fences[i]
         print(el)
-        while i + 1 < len(sorted_fences) and get_pos_diff(el, sorted_fences[i+1]) < 2:
+        while i + 1 < len(sorted_fences) and get_pos_diff(el, sorted_fences[i + 1]) < 2:
             i += 1
-            print("in a row:", sorted_fences[i-1], sorted_fences[i])
+            print("in a row:", sorted_fences[i - 1], sorted_fences[i])
             el = sorted_fences[i]
         count += 1
         i += 1
@@ -109,12 +113,12 @@ def get_sides(area, fences):
         for j in range(len(area) + 3):
             drawing[i].append("X")
 
-
     print(fences)
 
-
     for i in range(len(fences)):
-        for j in range(i + 1, len(fences)):  # Avoid duplicate pairs by starting from i + 1
+        for j in range(
+            i + 1, len(fences)
+        ):  # Avoid duplicate pairs by starting from i + 1
             if get_pos_diff(fences[i], fences[j]) == 1:
                 # print(fences[i], fences[j])
                 pairs.append((fences[i], fences[j]))
@@ -122,7 +126,7 @@ def get_sides(area, fences):
     for f in fences:
         a = f[0] + 1
         b = f[1] + 1
-        print(a,b)
+        print(a, b)
         drawing[a][b] = "."
 
     for i in range(len(area) + 2):
