@@ -68,19 +68,21 @@ def draw(robots):
         print()
 
 
-def potential_tree_shape(robots):
+def tree_shape_found(robots):
     positions = []
     for r in robots:
         positions.append(r["pos"])
-    prev_line = 0
+    prev_pos = [0, 0]
     cnt = 0
+    # tree shape is considered found if there are at least 10 robots in a row
     for pos in sorted(positions):
-        if pos[0] == prev_line:
+        if pos[0] == prev_pos[0] and pos[1] == prev_pos[1] + 1:
+            prev_pos = [pos[0], pos[1]]
             cnt += 1
         else:
             cnt = 0
-            prev_line = pos[0]
-        if cnt > 20:
+            prev_pos = [pos[0], pos[1]]
+        if cnt > 10:
             return True
     return False
 
@@ -91,12 +93,11 @@ def part_1(robots):
         for r in robots:
             r["pos"] = get_next_pos(r)
         seconds += 1
-        if potential_tree_shape(robots):
-            print("Seconds elapsed:", seconds)
+        if tree_shape_found(robots):
             draw(robots)
-            time.sleep(0.1)
-    print("Solution must be somewhere up!")
-    return 1
+            return seconds
+    print("Solution not found!")
+    return 0
 
 
 if __name__ == "__main__":
