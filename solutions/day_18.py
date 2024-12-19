@@ -44,7 +44,7 @@ def part_0(bytes_list):
             if grid[neighbor[0]][neighbor[1]] == ".":
                 grid[neighbor[0]][neighbor[1]] = distance + 1
                 queue.append((neighbor[0], neighbor[1], distance + 1))
-    return grid[GRID_LEN-1][GRID_LEN-1]
+    return grid[GRID_LEN - 1][GRID_LEN - 1]
 
 
 def is_end_reachable(bytes_list, fallen_bytes):
@@ -65,7 +65,8 @@ def is_end_reachable(bytes_list, fallen_bytes):
             if grid[neighbor[0]][neighbor[1]] == ".":
                 grid[neighbor[0]][neighbor[1]] = distance + 1
                 queue.append((neighbor[0], neighbor[1], distance + 1))
-    return grid[GRID_LEN-1][GRID_LEN-1] != "."
+    return grid[GRID_LEN - 1][GRID_LEN - 1] != "."
+
 
 def part_1(bytes_list):
     # Use bisection to speed up the search
@@ -81,6 +82,7 @@ def part_1(bytes_list):
     pos = bytes_list[low - 1]  # Access the last valid position
     # We reversed x and y at the start so do it again here
     return f"{pos[1]},{pos[0]}"
+
 
 if __name__ == "__main__":
     start_time = time.time()
